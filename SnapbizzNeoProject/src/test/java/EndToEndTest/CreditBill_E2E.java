@@ -1,20 +1,20 @@
 package EndToEndTest;
 
-import java.util.concurrent.TimeUnit;
-
+import org.openqa.selenium.Keys;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import BaseClass.BaseTest;
 import FileUtility.ExcelUtility;
 import ObjectRepository.Add_CustomerPage;
 import ObjectRepository.BillingCartPage;
+import ObjectRepository.Customers_Page;
 import ObjectRepository.HomePage;
-import ObjectRepository.Reports_Page;
-import ObjectRepository.SalesReports_Page;
 import WebDriverUtility.JavaUtility;
 import WebDriverUtility.WebDriverUtility;
 
-public class E2ETest extends BaseTest {
+public class CreditBill_E2E extends BaseTest {
+
 	WebDriverUtility wu = new WebDriverUtility();
 	JavaUtility ju = new JavaUtility();
 	ExcelUtility eu = new ExcelUtility();
@@ -22,8 +22,7 @@ public class E2ETest extends BaseTest {
 	@Test
 	public void salesBill() throws Throwable {
 
-		//wu.waitForPageLoad(driver);
-		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		wu.waitForPageLoad(driver);
 
 		// Step 1: Login to app
 
@@ -32,47 +31,40 @@ public class E2ETest extends BaseTest {
 		hp.clickOpenMenu();
 		hp.clickCustomer();
 
-		// Step 3: Read data from excel file and click on add customers
+		// Step 3: Read data from excel file and Create the customer and store the name
+		// for validation later
+
 		String custName = eu.getDataFromExcel("customerSheet", 1, 0) + ju.getRandomNumber();
 		String custPhone = eu.getDataFromExcel("customerSheet", 1, 1) + ju.getRandomNumber();
 		Add_CustomerPage ac = new Add_CustomerPage(driver);
-		ac.createCustumer(custPhone, custName);
+		String createdCustomerName = ac.createCustumer(custPhone, custName); // Capture customer name
 
-		/**
-		 * 		int rowCount = eu.getRowCount("customerSheet");
-		 * for (int i = 1; i <= rowCount; i++) { String custName =
-		 * eu.getDataFromExcel("customerSheet", 1, 0) + ju.getRandomNumber(); String
-		 * custPhone = eu.getDataFromExcel("customerSheet", 1, 1) +
-		 * ju.getRandomNumber();
-		 * 
-		 * ac.createCustumer(custPhone, custName); }
-		 **/
 		Thread.sleep(500);
 
 		hp.clickOpenMenu();
 
-		// Step 4: Tag the same customer and make a bill
+		// Step 4: Read data from excel file
 		hp.clickCart();
 		String productName = eu.getDataFromExcel("productSheet", 1, 0);
 
 		BillingCartPage bp = new BillingCartPage(driver);
-		bp.cartBilling(productName, custName);
+		bp.creditBilling(productName, createdCustomerName);
 
-		// Step 5: Go to bills module
 		hp.clickOpenMenu();
 		hp.clickBills();
-		Thread.sleep(1000);
+		Thread.sleep(500);
 
-		// Step 6: Go to reports menu and select Sales Register Report
 		hp.clickOpenMenu();
-		hp.clickReports();
+		hp.clickCustomer();
 
-		Reports_Page rp = new Reports_Page(driver);
-		rp.sales().click();
+		// Search for the same customer
+		Customers_Page cp = new Customers_Page(driver);
+		cp.getSearchBox().sendKeys(createdCustomerName);
+		cp.getSearchBox().sendKeys(Keys.ENTER);
 
-		SalesReports_Page sp = new SalesReports_Page(driver);
-		sp.getSalesRegisterReport().click();
-		sp.getPreviewBtn().click();
+		cp.getBillsOption().click();
+		String dueAmount = cp.getAmt().getText();
+		System.out.println("============================Due Amount is ===================: " + dueAmount);
 	}
 
 }

@@ -15,26 +15,17 @@ public class PurchaseReport_Page {
         this.driver = driver;
     }
     
-    //purchase report
-    public WebElement clickPurchaseReport() {
-    	return driver.findElementByName("Purchase Report");
-    }
+    //sales register report
+    public WebElement getPurchaseReport() {
+    	return driver.findElementByAccessibilityId("purchase_report");
+        }
     
-    public WebElement previewBtn() {
+    public WebElement getPreviewBtn() {
     	return driver.findElementByName("Preview");
-    }
+        }
     
-    //business class
-    public void purchaseReport() throws Throwable {
-   		
-    	WebElement reportBtn = clickPurchaseReport();
-    	driver.executeScript("arguments[0].scrollIntoView(true);", reportBtn);
-    	reportBtn.click();
-
-        // Optionally wait and click Preview
-        Thread.sleep(500);
-        previewBtn().click();
-    	
-    }
+    
+    
+  
   
 }

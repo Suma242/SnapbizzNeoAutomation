@@ -15,7 +15,7 @@ package BaseClass;
 	import org.testng.annotations.BeforeSuite;
 	import org.testng.annotations.BeforeClass;
 
-	import ObjectRepository.LoginPage;
+	import ObjectRepository.LoginPageOld;
 	import io.appium.java_client.windows.WindowsDriver;
 
 	public class BaseTst {
@@ -112,7 +112,7 @@ package BaseClass;
 	    public void loginToApplication() throws Throwable {
 	        // Perform login before any test method runs
 	        if (driver != null) {
-	            LoginPage loginPage = new LoginPage(driver);
+	            LoginPageOld loginPage = new LoginPageOld(driver);
 	            loginPage.loginToApp();  // Calls the login method from LoginPage
 	        }
 	    }

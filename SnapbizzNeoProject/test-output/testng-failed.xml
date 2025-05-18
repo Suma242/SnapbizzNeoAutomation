@@ -3,14 +3,14 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="EndToEndTest.E2ETest">
+      <class name="Distributors.AddDistributor_Test">
         <methods>
           <include name="tearDown"/>
           <include name="loginToApplication"/>
           <include name="setUp"/>
-          <include name="addCustomers"/>
+          <include name="addDistributors"/>
         </methods>
-      </class> <!-- EndToEndTest.E2ETest -->
+      </class> <!-- Distributors.AddDistributor_Test -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

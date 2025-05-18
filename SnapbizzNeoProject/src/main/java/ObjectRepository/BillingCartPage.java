@@ -70,10 +70,21 @@ package ObjectRepository;
 	    public WebElement getSaveBtn() {
 	        return driver.findElementByAccessibilityId("SaveBtn");
 	    }
+	       
+	    public WebElement getCashBtn() {
+	        return driver.findElementByAccessibilityId("CashBox");
+	    }
+	    
+	    
+	    public WebElement getNetAmount() {
+	        return driver.findElementByName("MrpTextBox");
+	    }
+	    
+	    
 	    
 
 	    // Business Logic
-	    public void cartBilling(String productName, String custName) throws InterruptedException {
+	    public void cartBilling(String productName, String customerName) throws InterruptedException {
 	        WebDriverWait wait = new WebDriverWait(driver, 10);
 	        Actions actions = new Actions(driver);
 
@@ -101,7 +112,7 @@ package ObjectRepository;
             .keyUp(Keys.CONTROL)
             .perform();
              Thread.sleep(500); // Wait for search field to gain focus
-             actions.sendKeys(custName).perform();
+             actions.sendKeys(customerName).perform();
 
 	        wait.until(ExpectedConditions.elementToBeClickable(getCustAutoSugg()));
 	        getCustAutoSugg().click();
@@ -112,24 +123,6 @@ package ObjectRepository;
 	        getaddPaymentBtn().click();
 	        
             WebElement payMdropdown = getPaymentMethod();
-            
-   /**         payMdropdown.click();
-	        payMdropdown.sendKeys("Digital");
-	        payMdropdown.click();
-	        payMdropdown.sendKeys(Keys.ENTER);
-	        
-	        WebElement payMdropdown = getPaymentMethod();
-	        payMdropdown.click();
-	        
-	        // Now use Arrow keys to select "Digital"
-	        payMdropdown.sendKeys(Keys.ARROW_DOWN); // adjust depending on order
-	       // payMdropdown.sendKeys(Keys.ARROW_DOWN); // repeat as needed
-	        payMdropdown.sendKeys(Keys.ENTER);
-	        
-	        payMdropdown.click();
-	        Thread.sleep(500); // give time for dropdown to expand
-	        payMdropdown.sendKeys(Keys.ARROW_DOWN);
-	        payMdropdown.sendKeys(Keys.ENTER); **/
             
             payMdropdown.click();
             driver.findElementByName("Digital").click();
@@ -142,7 +135,7 @@ package ObjectRepository;
             
 
             wait.until(ExpectedConditions.elementToBeClickable(getAmount()));
-	        getAmount().sendKeys(" 100");
+	        getAmount().sendKeys(" 500");
 	        
 	        Thread.sleep(500); 
 
@@ -154,4 +147,47 @@ package ObjectRepository;
 	        wait.until(ExpectedConditions.elementToBeClickable(getSaveBtn()));
 	        getSaveBtn().click();
 	    }
+	    
+	    public void creditBilling(String productName, String customerName) throws Throwable {
+	    	
+	    	WebDriverWait wait = new WebDriverWait(driver, 10);
+	        Actions actions = new Actions(driver);
+
+	        // Focus the search field using Ctrl + F
+	        //Search product
+	        actions.keyDown(Keys.CONTROL)
+	               .sendKeys("f")
+	               .keyUp(Keys.CONTROL)
+	               .perform();
+	        Thread.sleep(500); // Wait for search field to gain focus
+	        actions.sendKeys(productName).perform();
+
+	        wait.until(ExpectedConditions.elementToBeClickable(getProdAutoSugg()));
+	        getProdAutoSugg().click();
+	        
+	        wait.until(ExpectedConditions.elementToBeClickable(getQty()));
+	        getQty().click();
+	        
+	        wait.until(ExpectedConditions.elementToBeClickable(getOkBtn()));
+	        getOkBtn().click();
+	        
+	        Thread.sleep(500);
+	        
+	        //Tag Customer
+	        actions.keyDown(Keys.CONTROL)
+            .sendKeys("n")
+            .keyUp(Keys.CONTROL)
+            .perform();
+             Thread.sleep(500); // Wait for search field to gain focus
+             actions.sendKeys(customerName).perform();
+
+	        wait.until(ExpectedConditions.elementToBeClickable(getCustAutoSugg()));
+	        getCustAutoSugg().click();	        
+	        Thread.sleep(500);
+	        
+			getCashBtn().click();
+			getCashBtn().sendKeys("0");
+			
+			getSaveBtn().click();
+		}
 }

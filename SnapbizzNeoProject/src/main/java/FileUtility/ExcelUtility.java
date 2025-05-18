@@ -17,35 +17,31 @@ public String getDataFromExcel(String sheetName , int rowNum , int celNum) throw
 		String data = wb.getSheet(sheetName).getRow(rowNum).getCell(celNum).getStringCellValue();	
 		wb.close();
 
-		return data;
-	
+		return data;	
 	}
-	
-	public int getRowCount(String sheetName) throws EncryptedDocumentException, IOException {
-		
 
-		FileInputStream fis = new FileInputStream("./src/test/resources/excel/testData.xlsx");
-		Workbook wb = WorkbookFactory.create(fis);
-		int rowNum = wb.getSheet(sheetName).getLastRowNum();	
-		wb.close();
 
-		return rowNum;
-		
-	}
+public int getRowCount(String sheetName) throws EncryptedDocumentException, IOException {
+	FileInputStream fis = new FileInputStream("./src/test/resources/excel/testData.xlsx");
+	Workbook wb = WorkbookFactory.create(fis);
+	int rowNum = wb.getSheet(sheetName).getLastRowNum();	
+	wb.close();
+
+	return rowNum;
 	
-	public void setDataIntoExcel(String sheetName , int rowNum , int celNum , String data) throws EncryptedDocumentException, IOException {
-		
-		FileInputStream fis = new FileInputStream("./src/test/resources/excel/testData.xlsx");
-		Workbook wb = WorkbookFactory.create(fis);
-		wb.getSheet(sheetName).getRow(rowNum).createCell(celNum).setCellValue(data);
-		
-		FileOutputStream fos = new FileOutputStream("./src/test/resources/excel/testData.xlsx");
-		wb.write(fos);
-		wb.close();
-		
-		
-		
-	}
+}
+
+public void setDataIntoExcel(String sheetName , int rowNum , int celNum , String data) throws EncryptedDocumentException, IOException {
+	
+	FileInputStream fis = new FileInputStream("./src/test/resources/excel/testData.xlsx");
+	Workbook wb = WorkbookFactory.create(fis);
+	wb.getSheet(sheetName).getRow(rowNum).createCell(celNum).setCellValue(data);
+	
+	FileOutputStream fos = new FileOutputStream("./src/test/resources/excel/testData.xlsx");
+	wb.write(fos);
+	wb.close();
+
+}
 
 }
 

@@ -2,7 +2,10 @@ package ObjectRepository;
 
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
+import WebDriverUtility.WebDriverUtility;
 import io.appium.java_client.windows.WindowsDriver;
 
 public class Add_CustomerPage {
@@ -49,14 +52,14 @@ public class Add_CustomerPage {
         return driver.findElementByAccessibilityId("SubmitButton");
     }
     
-    public WebElement getCancelBtn() {
-        return driver.findElementByName("Cancel");
-    }
+//    public WebElement getCancelBtn() {
+//        return driver.findElementByName("Cancel");
+//    }
     
     
     
    // business logic 
-    public void createCustumer( String phoneNo,String custName) {
+    public String createCustumer( String phoneNo,String custName) {
     	getClickAddCustomer().click();
     	getCustPhone().clear();
     	getCustPhone().sendKeys(phoneNo);
@@ -66,12 +69,17 @@ public class Add_CustomerPage {
     	getSaveBtn().click();
     	//getCancelBtn().click();
     	
+    	return custName;
+  
     }
     
-    public void createCustumerWithMemID(  String phoneNo,String altNo,String custName, String email, String memId, String genderBtn) {
+    public void createCustumerWithMemID(String phoneNo,String altNo,String custName, String email, String memId, String genderBtn) throws Throwable {
+        	//getClickAddCustomer().click();
         	
-    	getClickAddCustomer().click();
-        	
+    	WebDriverWait wait = new WebDriverWait(driver, 10);
+    	wait.until(ExpectedConditions.elementToBeClickable(getClickAddCustomer())).click();
+
+    	
         	getCustPhone().clear();
         	getCustPhone().sendKeys(phoneNo);
         	

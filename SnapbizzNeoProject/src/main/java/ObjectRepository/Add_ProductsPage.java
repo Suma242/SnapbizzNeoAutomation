@@ -66,18 +66,7 @@ public class Add_ProductsPage {
     }
     
    
-   /** public void typeWithRobot(String text) throws Exception {
-        Robot robot = new Robot();
-        for (char c : text.toCharArray()) {
-            int keycode = KeyEvent.getExtendedKeyCodeForChar(c);
-            if (KeyEvent.CHAR_UNDEFINED == keycode) continue;
-            robot.keyPress(keycode);
-            robot.keyRelease(keycode);
-            Thread.sleep(50); // slight delay between keys
-        }
-    }
-
-    
+   /** 
     public void createProducts(String barcode,String productName,  String mrp, String uom) throws Exception {
         Actions act = new Actions(driver);
 
@@ -141,26 +130,28 @@ public class Add_ProductsPage {
     	
     }
     **/    
-    public void createProducts( String barcode, String productName, String mrp, String uom ) throws InterruptedException {
+    public void createProducts( String barcode, String productName,String purchasePrice, String mrp, String uom ) throws InterruptedException {
     
         getBarcodeField().sendKeys(barcode);
         getProductNameField().sendKeys(productName);
+        getPurchasePriceField().sendKeys(purchasePrice);
 
         // Optional short wait
         Thread.sleep(500);
 
-//        getMrpField().click();  // Ensure it gets focus
-//        getMrpField().clear();
-//        getMrpField().sendKeys(mrp);
-//        System.out.println("MRP element: " + getMrpField().getText());
-//        
-        WebElement mrpField = driver.findElementByName("MRP");
-        mrpField.click();
-        Thread.sleep(500); // Give time to focus
-        mrpField.clear();  // In case default "0" is there
-        mrpField.sendKeys(Keys.CONTROL + "a"); // Select all
-        mrpField.sendKeys(Keys.BACK_SPACE);    // Clear properly
-        mrpField.sendKeys(mrp);                // Send MRP value
+         getMrpField().click();  // Ensure it gets focus
+         getMrpField().clear();
+         getMrpField().sendKeys(mrp);
+         System.out.println("MRP element: " + getMrpField().getText());
+        
+     
+//        WebElement mrpField = driver.findElementByName("MRP");
+//        mrpField.click();
+//        Thread.sleep(500); // Give time to focus
+//        mrpField.clear();  // In case default "0" is there
+//        mrpField.sendKeys(Keys.CONTROL + "a"); // Select all
+//        mrpField.sendKeys(Keys.BACK_SPACE);    // Clear properly
+//        mrpField.sendKeys(mrp);                // Send MRP value
 
 
 
@@ -185,6 +176,7 @@ public class Add_ProductsPage {
     	getPurchasePriceField().clear();
     	getPurchasePriceField().sendKeys(purchasePrice);
     	
+    	getMrpField().click();
     	getMrpField().clear();
     	getMrpField().sendKeys(mrp);
     	

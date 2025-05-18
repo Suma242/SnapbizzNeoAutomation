@@ -13,6 +13,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 
 import ObjectRepository.LoginPage;
@@ -28,8 +29,9 @@ public class BaseTest {
 
 	@BeforeSuite
 	public WindowsDriver<WebElement> setUp() throws IOException, InterruptedException {
+
 		PropertyConfigurator.configure(
-				"C:\\Users\\snapbizz\\eclipse-workspace\\SnapbizzNeoProject\\src\\main\\resources\\log4j.properties");
+		"C:\\Users\\snapbizz\\git\\repository3\\SnapbizzNeoProject\\src\\main\\resources\\log4j.properties");
 	
 		if (driver == null) {
 			try {
@@ -95,11 +97,12 @@ public class BaseTest {
 					String MAWinHandleHex = Integer.toHexString(MAWinHandleInt);
 					DesiredCapabilities caps = new DesiredCapabilities();
 					caps.setCapability("appTopLevelWindow", MAWinHandleHex);
+
 					driver = new WindowsDriver<WebElement>(new URL(config.getProperty("url")), capabilities);
 					driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 
 				} else {
-					driver.quit();
+					//driver.quit();
 				}
 			} finally {
 

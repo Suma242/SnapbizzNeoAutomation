@@ -64,21 +64,21 @@ public class Purchases_page {
         
     	WebDriverWait wait = new WebDriverWait(driver, 10);   
         
-    	for (char c : distName.toCharArray()) {
-    	    searchDist().sendKeys(String.valueOf(c));
-    	    Thread.sleep(10); // slow typing
-    	}
+//    	for (char c : distName.toCharArray()) {
+//    	    searchDist().sendKeys(String.valueOf(c));
+//    	    Thread.sleep(5); // slow typing
+//    	}
 
    
-//        searchDist().clear();
-//    	searchDist().sendKeys(distName);
-//    	Thread.sleep(500);
+        searchDist().clear();
+    	searchDist().sendKeys(distName);
+    	Thread.sleep(500);
     	wait.until(ExpectedConditions.elementToBeClickable(distSugg()));
     	distSugg().click();
     	
     	searchProd().clear();
     	searchProd().sendKeys(prodName);
-    	Thread.sleep(500);
+    	Thread.sleep(200);
     	wait.until(ExpectedConditions.elementToBeClickable(prodSugg()));
     	prodSugg().click();
     	

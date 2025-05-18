@@ -14,6 +14,7 @@ import io.appium.java_client.windows.WindowsDriver;
 public class WebDriverUtility {
 	
 	 private WindowsDriver<WebElement> driver;
+	 //private WindowsDriver<WebElement> driver;
 	
    public void waitForPageLoad(WindowsDriver<WebElement> driver) {
 	  // driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
